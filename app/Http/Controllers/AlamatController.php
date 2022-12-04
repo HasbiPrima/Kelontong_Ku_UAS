@@ -45,11 +45,11 @@ class AlamatController extends Controller
         $table = new Alamat();
         $table->provinsi = $request->provinsi;
         $table->kabupaten = $request->kabupaten;
-        $table->kecamatn = $request->kecamatn;
+        $table->kecamatan = $request->kecamatan;
         $table->alamat_lengkap = $request->alamat_lengkap;
         $table->tambahan = $request->tambahan;
         $table->kode_pos = $request->kode_pos;
-        $table->stok = $request->stok;
+        $table->nama_penerima = $request->nama_penerima;
         $table->save();
 
         //return $table
@@ -99,11 +99,11 @@ class AlamatController extends Controller
         if($table){
             $table->provinsi = $request->provinsi ? $request-> provinsi : $table->provinsi;
             $table->kabupaten = $request->kabupaten ? $request->kabupaten : $table->kabupaten;
-            $table->kecamatn = $request->kecamatn ? $request->kecamatn : $table->kecamatn;
+            $table->kecamatan = $request->kecamatan ? $request->kecamatan : $table->kecamatan;
             $table->alamat_lengkap = $request->alamat_lengkap ? $request->alamat_lengkap : $table->alamat_lengkap;
             $table->tambahan = $request->tambahan ? $request->tambahan : $table->tambahan;
             $table->kode_pos = $request->kode_pos ? $request->kode_pos : $table->kode_pos;
-            $table->stok = $request->stok ? $request->stok : $table->stok;
+            $table->nama_penerima = $request->nama_penerima ? $request->nama_penerima : $table->nama_penerima;
             $table->save();
 
             return $table;

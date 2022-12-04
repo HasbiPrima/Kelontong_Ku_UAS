@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction;
-use Illuminate\Support\Facades\Validator;
 
-class TransactionController extends Controller
+use App\Models\Order;
+
+class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $table = Transaction::all();
+        $table = Order::all();
 
         //return $data;
         return response()->json([
@@ -39,52 +34,32 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        $message = [
-            "id_produk" => 'Masukan id_produk',
-            "id_user" => 'Masukan id_user',
-            "alamat" => 'Masukan alamat',
-            "jumlah" => 'Masukan jumlah',
-            "pembayaran" => 'Masukan pembayaran',      
-            "total_harga" => 'Masukan Total Harga'
+    //     // $table = Order::create([
+    //     //     "name" => $request->name,
+    //     //     "gender" => $request->gender,
+    //     //     "age" => $request->age
+    //     // ]);
 
-        ];
-        $validasi = Validator::make($request->all(),[
-            "id_produk" => "required",          
-            "id_user" => "required",
-            "alamat" => "required",
-            "jumlah" => 'required',
-            "pembayaran" => 'required',
-            "total_harga" => 'required'
-
-        ], $message);
-        if ($validasi ->fails()) {
-            return $validasi -> error();
-        }
-        $Transaction = Transaction::create($validasi->validate());
-        $Transaction->save();
-
-        return response()->json([
-            "message"=>"load data success",
-            "data"=> $Transaction
-        ],201);
-
-        //$table = new Transaction();
-        //$table->id_produk = $request->id_produk;
-        //$table->id_user = $request->id_user;
-        //$table->alamat = $request->alamat;
-        //$table->jumlah = $request->jumlah;
-        //$table->pembayaran = $request->pembayaran;
-        //$table->total_harga = $request->total_harga;
-        //$table->save();
+        $table = new Order();
+        $table->id_produk = $request->id_produk;
+        $table->id_user = $request->id_user;
+        $table->nama_barang = $request->nama_barang;
+        $table->merek = $request->merek;
+        $table->ukuran = $request->ukuran;
+        $table->jumlah = $request->jumlah;
+        $table->tambahan = $request->tambahan;
+        $table->save();
 
         //return $table
-        //return response()->json([
-        //    "message" => "Store success",
-        //    "data" => $table
-        //], 201);
+        return response()->json([
+            "message" => "Store success",
+            "data" => $table
+        ], 201);
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -94,7 +69,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $table = Transaction::find($id);
+        $table = Order::find($id);
         if($table){
             return $table;
         }else{
@@ -122,14 +97,15 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $table = Transaction::find($id);
+        $table = Order::find($id);
         if($table){
             $table->id_produk = $request->id_produk ? $request-> id_produk : $table->id_produk;
             $table->id_user = $request->id_user ? $request->id_user : $table->id_user;
-            $table->alamat = $request->alamat ? $request->alamat : $table->alamat;
+            $table->nama_barang = $request->nama_barang ? $request->nama_barang : $table->nama_barang;
+            $table->merek = $request->merek ? $request->merek : $table->merek;
+            $table->ukuran = $request->ukuran ? $request->ukuran : $table->ukuran;
             $table->jumlah = $request->jumlah ? $request->jumlah : $table->jumlah;
-            $table->pembayaran = $request->pembayaran ? $request->pembayaran : $table->pembayaran;
-            $table->total_harga = $request->total_harga ? $request->total_harga : $table->total_harga;
+            $table->tambahan = $request->tambahan ? $request->tambahan : $table->tambahan;
             $table->save();
 
             return $table;
@@ -146,7 +122,7 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        $table = Transaction::find($id);
+        $table = Order::find($id);
         if($table){
             $table->delete();
             return ["message" => "Delete succes"];

@@ -10,5 +10,11 @@ class Transaction extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
+    protected $with = [
+            'product',
+    ];
+    public function product()
+        {
+            return $this->belongsTo(Product::class, 'id_product');
+        }
 }

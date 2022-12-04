@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('alamats', function (Blueprint $table) {
             $table->id();
+            $table->string("provinsi");
+            $table->string("kabupaten");
+            $table->string("kecamatan");
+            $table->string("alamat_lengkap");
+            $table->string("tambahan");
+            $table->string("kode_pos");
+            $table->string("nama_penerima");
             $table->timestamps();
         });
     }
